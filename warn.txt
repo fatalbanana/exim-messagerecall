@@ -1,0 +1,27 @@
+Subject: Warning: message $message_exim_id delayed
+  $warn_message_delay
+****
+This message was created automatically by mail delivery software.
+
+A message ${if eq{$sender_address}{$warn_message_recipients}
+{that you sent }{sent by
+
+<$sender_address>
+
+}}has not been delivered to all of its recipients after
+more than $warn_message_delay in the queue on $primary_hostname.
+
+The message identifier is:     $message_exim_id
+The subject of the message is: $h_subject
+The date of the message is:    $h_date
+
+The following address(es) have not yet been delivered:
+****
+No action is required on your part. Delivery attempts will
+continue for some time, and this warning may be repeated at
+intervals if the message remains undelivered. Eventually the
+mail delivery software will give up, and when that happens,
+the message will be returned to you.
+
+To stop delivery attempts send a message to this address:
+${base64:m=$message_exim_id h=${hmac{sha1}{SKEY_A}{$message_exim_id}}}@r.example.org
