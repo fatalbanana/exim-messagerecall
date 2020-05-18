@@ -24,4 +24,4 @@ mail delivery software will give up, and when that happens,
 the message will be returned to you.
 
 To stop delivery attempts send a message to this address:
-${base64:m=$message_exim_id h=${hmac{sha1}{SKEY_A}{$message_exim_id}}}@r.example.org
+${base64:m=$message_exim_id h=${hmac{sha1}{${readfile{/etc/exim4/recall-key1.txt}}}{$message_exim_id}}}@r.example.org
